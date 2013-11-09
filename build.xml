@@ -35,9 +35,6 @@
 		<delete dir="${classes.home}" failonerror="false" />
 	</target>
 
-	<target name="index:clean" description="清除目录">
-		<delete dir="${index.home}" failonerror="false" />
-	</target>
 
 
 	<target name="run" description="运行程序">
@@ -91,8 +88,7 @@
 		<delete file="${zip.file.name}.zip" failonerror="false" />
 		<zip destfile="${zip.file.name}.zip">
 		    <zipfileset dir="lib" prefix="${zip.file.name}/lib"/>
-			<zipfileset dir="bin" prefix="${zip.file.name}/bin"/>
-		    <zipfileset dir="indexs" excludes="**/*" prefix="${zip.file.name}/indexs"/>
+			<zipfileset dir="script" prefix="${zip.file.name}/script"/>
 			<zipfileset dir="conf" prefix="${zip.file.name}/conf"/>
 			<zipfileset dir="logs" excludes="**/*" prefix="${zip.file.name}/logs"/>
 			<zipfileset dir="tmp" excludes="**/*" prefix="${zip.file.name}/tmp"/>
