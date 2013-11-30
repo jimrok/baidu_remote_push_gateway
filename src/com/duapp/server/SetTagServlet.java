@@ -16,23 +16,22 @@ import com.baidu.yun.channel.auth.ChannelKeyPair;
 import com.baidu.yun.channel.client.BaiduChannelClient;
 import com.baidu.yun.channel.exception.ChannelClientException;
 import com.baidu.yun.channel.exception.ChannelServerException;
-import com.baidu.yun.channel.model.PushUnicastMessageRequest;
-import com.baidu.yun.channel.model.PushUnicastMessageResponse;
+import com.baidu.yun.channel.model.SetTagRequest;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-public class PusherServiceServlet extends HttpServlet {
+public class SetTagServlet extends HttpServlet {
 
 	final private static Logger log = Logger
-			.getLogger(PusherServiceServlet.class.getName());
+			.getLogger(BindListQueryServlet.class.getName());
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public PusherServiceServlet() {
+	public SetTagServlet() {
 
 	}
 
@@ -50,20 +49,13 @@ public class PusherServiceServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		request.setCharacterEncoding("UTF-8");
 		String user_id = request.getParameter("user_id");
-		String channel_id = request.getParameter("channel_id");
-		String message = request.getParameter("messages");
-
-		Map<String, String> params = new HashMap<String, String>();
-		params.put("message", message);
-		params.put("channel_id", channel_id);
-		params.put("user_id", user_id);
+		String tag = request.getParameter("tag");
 
 		// log user input.
 		if (log.isInfoEnabled()) {
 			StringBuilder sb = new StringBuilder();
-			sb.append("search parameters:").append(",user_id:").append(user_id)
-					.append(",channel_id:").append(channel_id);
-			sb.append(",message:").append(message);
+			sb.append("user_id:");
+			sb.append(user_id);
 			log.info(sb);
 		}
 
@@ -71,15 +63,15 @@ public class PusherServiceServlet extends HttpServlet {
 
 		response.setCharacterEncoding("UTF-8");
 		response.setContentType("application/json");
-		response.setBufferSize(8192);
+		response.setBufferSize(128);
 
 		PrintWriter out = response.getWriter();
+		// JSONObject json_object = new JSONObject();
 		Gson gson = new GsonBuilder().setFieldNamingPolicy(
 				FieldNamingPolicy.LOWER_CASE_WITH_DASHES).create();
-		Object result = push_message_to_device(params);
-
-		out.println(gson.toJson(result));
-
+		
+		out.println(gson.toJson(setUserTag(user_id,tag)));
+		
 		out.flush();
 		out.close();
 
@@ -96,11 +88,7 @@ public class PusherServiceServlet extends HttpServlet {
 		return "Zoie Service Loader Servlet.";
 	}
 
-	public Map<Object, Object> push_message_to_device(Map<String, String> params) {
-		/*
-		 * @brief 推送单播消息(消息类型为透传，由开发方应用自己来解析消息内容) message_type = 0 (默认为0)
-		 */
-
+	private Map<Object, Object>  setUserTag(String user_id, String tag) {
 		// 1. 设置developer平台的ApiKey/SecretKey
 		String apiKey = KeyKeeper.api_key();
 		String secretKey = KeyKeeper.secret_key();
@@ -113,35 +101,22 @@ public class PusherServiceServlet extends HttpServlet {
 		// channelClient.setChannelLogHandler(new YunLogHandler() {
 		// @Override
 		// public void onHandle(YunLogEvent event) {
+		// // TODO Auto-generated method stub
 		// System.out.println(event.getMessage());
 		// }
 		// });
-
+		
 		Map<Object, Object> return_result = new HashMap<Object, Object>();
-
-		String channel_id = params.get("channel_id");
-		String user_id = params.get("user_id");
-
 		try {
-
 			// 4. 创建请求类对象
-			// 手机端的ChannelId， 手机端的UserId， 先用1111111111111代替，用户需替换为自己的
-			PushUnicastMessageRequest request = new PushUnicastMessageRequest();
-			request.setDeviceType(3); // device_type => 1: web 2: pc 3:android
-										// 4:ios 5:wp
-
-			request.setChannelId(Long.valueOf(channel_id));
+			// 手机端的UserId， 先用1111111111111代替，用户需替换为自己的
+			SetTagRequest request = new SetTagRequest();
 			request.setUserId(user_id);
+			request.setTag(tag);
 
-			request.setMessage(params.get("message"));
-
-			// 5. 调用pushMessage接口
-			PushUnicastMessageResponse response = channelClient
-					.pushUnicastMessage(request);
-
-			// 6. 认证推送成功
-			//System.out.println("push amount : " + response.getSuccessAmount());
-			return_result.put("success_amount", response.getSuccessAmount());
+			// 5. 调用setTag接口
+			channelClient.setTag(request);
+			return_result.put("status", 200);
 
 		} catch (ChannelClientException e) {
 			// 处理客户端错误异常
@@ -157,7 +132,6 @@ public class PusherServiceServlet extends HttpServlet {
 			return_result.put("error_message", e.getErrorMsg());
 
 		}
-
 		return return_result;
 
 	}

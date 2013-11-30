@@ -110,8 +110,11 @@ public class BaiduPusherServer {
 		push_holder.setInitOrder(0);
 		root.addServlet(push_holder, "/push");
 		ServletHolder bindquery_holder = new ServletHolder(BindListQueryServlet.class);
-		bindquery_holder.setInitOrder(0);
+		bindquery_holder.setInitOrder(1);
 		root.addServlet(bindquery_holder, "/binding");
+		ServletHolder settag_holder = new ServletHolder(SetTagServlet.class);
+		settag_holder.setInitOrder(2);
+		root.addServlet(settag_holder, "/settag");
 		root.start();
 		
 
