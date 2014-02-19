@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="GBK"?>
 <project default="all" name="com.duapp.server" basedir=".">
 	<property name="lib.home" value="." />
-	<property name="zip.file.name" value="ewhine_search" />
+	<property name="zip.file.name" value="push_gateway" />
 	<property name="src.home" value="src" />
 	<property name="classes.home" value="classes" />
 	<property name="dist.home" value="lib" />
