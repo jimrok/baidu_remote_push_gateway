@@ -9,6 +9,8 @@ public class KeyKeeper {
 	
 	private static String API_KEY = null;
 	private static String SECRET_KEY = null;
+	private static String APNS_FILE = null;
+	private static String APNS_FILE_SECRET = null;
 	
 	
 	static {
@@ -29,6 +31,8 @@ public class KeyKeeper {
 				props.load(fin);
 				SECRET_KEY = (String)props.get("secret.key");
 				API_KEY = (String)props.get("api.key");
+				APNS_FILE = (String)props.get("apns.file");
+				APNS_FILE_SECRET = (String)props.get("apns.file.secret");
 			} catch (Exception e) {
 				e.printStackTrace();
 			} finally {
@@ -51,5 +55,13 @@ public class KeyKeeper {
 	public static String secret_key() {
 		//String SECRET_KEY = "QiHxmD6CBkjz5nGdcaNIDOog7MAaSSN7";
 		return SECRET_KEY;
+	}
+	
+	public static String apnsFile(){
+		return APNS_FILE;
+	}
+	
+	public static String apnsFileSecret(){
+		return APNS_FILE_SECRET;
 	}
 }

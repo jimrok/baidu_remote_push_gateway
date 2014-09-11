@@ -12,8 +12,8 @@ import org.mortbay.jetty.servlet.Context;
 import org.mortbay.jetty.servlet.ServletHolder;
 import org.mortbay.thread.QueuedThreadPool;
 
-public class BaiduPusherServer {
-	private static final Logger log = Logger.getLogger(BaiduPusherServer.class);
+public class PusherServer {
+	private static final Logger log = Logger.getLogger(PusherServer.class);
 	private Server jettyServer = null;
 
 	/**
@@ -109,9 +109,15 @@ public class BaiduPusherServer {
 		ServletHolder push_holder = new ServletHolder(PusherServiceServlet.class);
 		push_holder.setInitOrder(0);
 		root.addServlet(push_holder, "/push");
+		
+		ServletHolder apns_holder = new ServletHolder(ApnsServiceServlet.class);
+		apns_holder.setInitOrder(0);
+		root.addServlet(apns_holder, "/apns");
+		
 		ServletHolder bindquery_holder = new ServletHolder(BindListQueryServlet.class);
 		bindquery_holder.setInitOrder(1);
 		root.addServlet(bindquery_holder, "/binding");
+		
 		ServletHolder settag_holder = new ServletHolder(SetTagServlet.class);
 		settag_holder.setInitOrder(2);
 		root.addServlet(settag_holder, "/settag");
@@ -159,7 +165,7 @@ public class BaiduPusherServer {
 	}
 	
 	public static void main(String[] args) {
-		BaiduPusherServer server = new BaiduPusherServer();
+		PusherServer server = new PusherServer();
 		try {
 			server.start();
 		} catch (Exception e) {

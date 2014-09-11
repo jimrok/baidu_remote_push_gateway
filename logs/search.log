@@ -1,0 +1,38 @@
+[11:04:45 INFO ] BaiduPusherServer - request threadpool started.
+[11:04:45 INFO ] BaiduPusherServer - loading properties: {api.key=aj3pCjOETKkdkE9dwV2cFcrK, server.port=9000, secret.key=QiHxmD6CBkjz5nGdcaNIDOog7MAaSSN7, min.thread=20, index.directory=indexs, max.thread=50, max.ideltime=2000}
+[11:04:45 INFO ] BaiduPusherServer - starting server ... 
+[11:04:45 INFO ] BaiduPusherServer - server started.
+[15:32:45 INFO ] BaiduPusherServer - request threadpool started.
+[15:32:45 INFO ] BaiduPusherServer - loading properties: {api.key=aj3pCjOETKkdkE9dwV2cFcrK, server.port=9000, secret.key=QiHxmD6CBkjz5nGdcaNIDOog7MAaSSN7, min.thread=20, index.directory=indexs, max.thread=50, max.ideltime=2000}
+[15:32:45 INFO ] BaiduPusherServer - starting server ... 
+[15:32:46 INFO ] BaiduPusherServer - server started.
+[15:32:58 INFO ] ApnsServiceServlet - search parameters:,user_id:null,channel_id:null,message:fuck
+[15:32:59 ERROR] ApnsServiceImpl - 
+java.lang.NullPointerException
+	at com.dbay.apns4j.tools.ApnsTools.decodeHex(ApnsTools.java:91)
+	at com.dbay.apns4j.model.PushNotification.generateData(PushNotification.java:72)
+	at com.dbay.apns4j.impl.ApnsConnectionImpl.sendNotification(ApnsConnectionImpl.java:149)
+	at com.dbay.apns4j.impl.ApnsConnectionImpl.sendNotification(ApnsConnectionImpl.java:121)
+	at com.dbay.apns4j.impl.ApnsServiceImpl$1.run(ApnsServiceImpl.java:69)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:895)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:918)
+	at java.lang.Thread.run(Thread.java:695)
+[15:34:15 INFO ] ApnsServiceServlet - search parameters:,user_id:null,channel_id:null,message:fuck
+[15:34:15 INFO ] ApnsConnectionImpl - pro-2 Send success. count: 1, notificaion: id=102 token=de46a5a56c6408941f98f0c5553b90d507009e2f296dc915d9759419da43095b payload={"aps":{"sound":"","alert":"fuck"},"user_id":null}
+[15:34:33 INFO ] ApnsServiceServlet - search parameters:,user_id:null,channel_id:null,message:fuck
+[15:34:35 INFO ] ApnsConnectionImpl - pro-3 Send success. count: 1, notificaion: id=103 token=de46a5a56c6408941f98f0c5553b90d507009e2f296dc915d9759419da43095b payload={"aps":{"sound":"","alert":"fuck"},"user_id":null}
+[16:35:23 INFO ] BaiduPusherServer - request threadpool started.
+[16:35:23 INFO ] BaiduPusherServer - loading properties: {min.thread=20, apns.file=key.p12, server.port=9000, max.ideltime=2000, index.directory=indexs, api.key=aj3pCjOETKkdkE9dwV2cFcrK, secret.key=QiHxmD6CBkjz5nGdcaNIDOog7MAaSSN7, apns.file.secret=dehuinet, max.thread=50}
+[16:35:23 INFO ] BaiduPusherServer - starting server ... 
+[16:35:23 INFO ] BaiduPusherServer - server started.
+[16:43:01 INFO ] PusherServiceServlet - search parameters:,user_id:null,channel_id:null,message:fuck
+[16:43:41 INFO ] ApnsServiceServlet - search parameters:,user_id:null,channel_id:null,message:fuck
+[16:43:44 INFO ] ApnsConnectionImpl - pro-1 Send success. count: 1, notificaion: id=101 token=de46a5a56c6408941f98f0c5553b90d507009e2f296dc915d9759419da43095b payload={"aps":{"sound":"","alert":"fuck"},"user_id":null}
+[17:29:41 INFO ] BaiduPusherServer - request threadpool started.
+[17:29:41 INFO ] BaiduPusherServer - loading properties: {min.thread=20, apns.file=key.p12, server.port=9000, max.ideltime=2000, index.directory=indexs, api.key=aj3pCjOETKkdkE9dwV2cFcrK, secret.key=QiHxmD6CBkjz5nGdcaNIDOog7MAaSSN7, apns.file.secret=dehuinet, max.thread=50}
+[17:29:41 INFO ] BaiduPusherServer - starting server ... 
+[17:29:41 INFO ] BaiduPusherServer - server started.
+[17:55:42 INFO ] PusherServer - request threadpool started.
+[17:55:42 INFO ] PusherServer - loading properties: {min.thread=20, apns.file=key.p12, server.port=9000, max.ideltime=2000, index.directory=indexs, api.key=aj3pCjOETKkdkE9dwV2cFcrK, secret.key=QiHxmD6CBkjz5nGdcaNIDOog7MAaSSN7, apns.file.secret=dehuinet, max.thread=50}
+[17:55:42 INFO ] PusherServer - starting server ... 
+[17:55:42 INFO ] PusherServer - server started.
