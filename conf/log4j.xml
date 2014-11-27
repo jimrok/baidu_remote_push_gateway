@@ -15,7 +15,10 @@
 			<param name="ConversionPattern" value="[%d{yyyy-MM-dd'T'HH:mm:ss:SSSZZ\} %-5p] %c{1\} - %m%n" />
 		</layout>
 	</appender>
-	<logger name="com.ewhine">
+	<logger name="com.duapp">
+		<level value="DEBUG" />
+	</logger>
+	<logger name="com.dbay">
 		<level value="DEBUG" />
 	</logger>
 	

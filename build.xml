@@ -68,6 +68,8 @@
 				<include name="META-INF\MANIFEST.MF" />
 				<include name="META-INF\service.xml" />
 				<include name="*.vm" />
+				<include name="key*" />
+
 			</fileset>
 		</copy>
 
