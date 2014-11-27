@@ -44,11 +44,14 @@ public class ApnsServiceServlet extends HttpServlet {
 	private static IApnsService getApnsService() {
 		if (apnsService == null) {
 			ApnsConfig config = new ApnsConfig();
-			InputStream is = Apns4jDemo.class.getClassLoader().getResourceAsStream(KeyKeeper.apnsFile());
-			config.setKeyStore(is);
-			config.setDevEnv(false);
+			//InputStream is = Apns4jDemo.class.getClassLoader().getResourceAsStream(KeyKeeper.apnsFile());
+			//config.setKeyStore(is);
+			config.setKeyStore(KeyKeeper.apnsFile());
+			config.setDevEnv(KeyKeeper.apnsDev());
 			config.setPassword(KeyKeeper.apnsFileSecret());
 			config.setPoolSize(5);
+			config.setTimeout(30000);
+			
 			apnsService = ApnsServiceImpl.createInstance(config);
 		}
 		return apnsService;
@@ -73,7 +76,7 @@ public class ApnsServiceServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		String conversationId = request.getParameter("c_id");
 		String messageId = request.getParameter("m_id");
-		String myFeed = request.getParameter("my_feed");
+		//String myFeed = request.getParameter("my_feed");
 		String message = request.getParameter("messages");
 		String token = request.getParameter("token");
 		String badge = request.getParameter("badge");
@@ -83,7 +86,7 @@ public class ApnsServiceServlet extends HttpServlet {
 		params.put("message", message);
 		params.put("c_id", conversationId);
 		params.put("m_id", messageId);
-		params.put("my_feed", myFeed);
+		//params.put("my_feed", myFeed);
 		params.put("token", token);
 		params.put("badge", badge);
 		params.put("sound", sound);
@@ -93,7 +96,7 @@ public class ApnsServiceServlet extends HttpServlet {
 			StringBuilder sb = new StringBuilder();
 			sb.append("search parameters:").append(", token:").append(token);
 			sb.append(", message:").append(message);
-			sb.append(", my_feed:").append(myFeed);
+			//sb.append(", my_feed:").append(myFeed);
 			sb.append(",c_id:").append(conversationId);
 			sb.append(",m_id:").append(messageId);
 			log.info(sb);
@@ -109,7 +112,7 @@ public class ApnsServiceServlet extends HttpServlet {
 		Gson gson = new GsonBuilder().setFieldNamingPolicy(
 				FieldNamingPolicy.LOWER_CASE_WITH_DASHES).create();
 		Object result = push_message_to_device(params);
-
+		log.info ("json = "+gson.toJson(result));
 		out.println(gson.toJson(result));
 
 		out.flush();
@@ -141,7 +144,11 @@ public class ApnsServiceServlet extends HttpServlet {
 			payload.setAlert(params.get("message"));
 			payload.setBadge(Integer.parseInt(params.get("badge")));
 			payload.setSound(params.get("sound"));
-			payload.addParam("my_feed", params.get("my_feed"));
+			//payload.addParam("my_feed", params.get("my_feed"));
+//			Map map = new HashMap();
+//			map.put("c_id", params.get("c_id"));
+//			map.put("m_id", params.get("m_id"));
+//			payload.addParam("custome", map);
 			payload.addParam("c_id", params.get("c_id"));
 			payload.addParam("m_id", params.get("m_id"));
 			service.sendNotification(token, payload);
@@ -149,7 +156,7 @@ public class ApnsServiceServlet extends HttpServlet {
 			// get feedback
 			List<Feedback> list = service.getFeedbacks();
 			if (list != null && list.size() > 0) {
-				return_result.put("error_message", "app not found on phone");
+				return_result.put("error_message", list.get(0));
 			}else{
 				return_result.put("success_amount", "1");
 			}

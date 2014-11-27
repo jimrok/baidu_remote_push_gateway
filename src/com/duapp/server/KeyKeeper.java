@@ -11,7 +11,7 @@ public class KeyKeeper {
 	private static String SECRET_KEY = null;
 	private static String APNS_FILE = null;
 	private static String APNS_FILE_SECRET = null;
-	
+	private static boolean APNS_DEV = false;
 	
 	static {
 		String confDirName = System.getProperty("conf.dir");
@@ -33,6 +33,7 @@ public class KeyKeeper {
 				API_KEY = (String)props.get("api.key");
 				APNS_FILE = (String)props.get("apns.file");
 				APNS_FILE_SECRET = (String)props.get("apns.file.secret");
+				APNS_DEV = Boolean.getBoolean( props.getProperty("apns.dev"));
 			} catch (Exception e) {
 				e.printStackTrace();
 			} finally {
@@ -63,5 +64,9 @@ public class KeyKeeper {
 	
 	public static String apnsFileSecret(){
 		return APNS_FILE_SECRET;
+	}
+	
+	public static boolean apnsDev(){
+		return APNS_DEV;
 	}
 }
